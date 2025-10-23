@@ -42,10 +42,9 @@ O sistema **não possui login** e as ações de **cadastrar, descadastrar e agen
 ---
 
 ## Como executar
-
-### Caso o projeto seja em HTML/JS/CSS puro (sem backend)
 1. Baixe a pasta do projeto (ZIP ou GitHub).  
 2. Extraia o conteúdo em uma pasta do computador.  
 3. Abra o arquivo `index.html` em um navegador.  
 4. O sistema abrirá a interface principal.  
+
 
