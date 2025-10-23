@@ -1,5 +1,7 @@
 # Sistema de Agendamento de Salas – Colégio Politécnico
 
+Link do tutorial: https://ctism-prof-henry.github.io/trab-final-noite-paulalinda/
+
 ## Descrição
 O sistema tem como objetivo **gerenciar o agendamento de salas** do Colégio Politécnico, permitindo que professores e funcionários reservem salas para aulas, reuniões ou atividades.  
 O sistema **não possui login** e as ações de **cadastrar, descadastrar e agendar** podem ser realizadas pela interface web.
@@ -46,3 +48,4 @@ O sistema **não possui login** e as ações de **cadastrar, descadastrar e agen
 2. Extraia o conteúdo em uma pasta do computador.  
 3. Abra o arquivo `index.html` em um navegador.  
 4. O sistema abrirá a interface principal.  
+
