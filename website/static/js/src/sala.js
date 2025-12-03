@@ -2,21 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaTbody = document.getElementById('listaAgendamentos');
     const inputFiltro = document.getElementById('filtroData');
     const btnFiltrar = document.getElementById('btnFiltrar');
+    const btnVerTodos = document.getElementById('btnVerTodos');
     const msgVazio = document.getElementById('msgVazio');
 
-    // Função para formatar a data (igual à que usamos no agendar.js)
     function formatarDataBr(dataYMD) {
         if (!dataYMD) return "";
         const [ano, mes, dia] = dataYMD.split('-');
         return `${dia}/${mes}/${ano}`;
     }
     
-    // Função principal que carrega e exibe os dados
-    function carregarAgendamentos(dataFiltro = null) {
+    // Recebe uma data específica OU 'todos'
+    function carregarAgendamentos(filtro = 'todos') {
         listaTbody.innerHTML = '';
         msgVazio.style.display = 'none';
 
-        // 1. LER DADOS DO LOCALSTORAGE
         let agendamentos = JSON.parse(localStorage.getItem('listaAgendamentos')) || [];
 
         if (agendamentos.length === 0) {
@@ -25,39 +24,38 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // 2. FILTRAR
         let agendamentosFiltrados = agendamentos;
-        if (dataFiltro) {
-            agendamentosFiltrados = agendamentos.filter(ag => ag.data === dataFiltro);
+        let textoFeedback = "";
+
+        if (filtro === 'todos') {
+            textoFeedback = "todos os agendamentos";
+            inputFiltro.value = ''; 
         } else {
-             // Exibe apenas agendamentos de hoje se nenhum filtro for aplicado inicialmente
-             const hoje = new Date().toISOString().split('T')[0];
-             agendamentosFiltrados = agendamentos.filter(ag => ag.data === hoje);
-             inputFiltro.value = hoje; // Pré-preenche o filtro com a data de hoje
+            agendamentosFiltrados = agendamentos.filter(ag => ag.data === filtro);
+            textoFeedback = formatarDataBr(filtro);
         }
         
-        // 3. ORDENAR (Por data e depois por hora de início)
         agendamentosFiltrados.sort((a, b) => {
             if (a.data < b.data) return -1;
             if (a.data > b.data) return 1;
-            // Se as datas são iguais, ordena pela hora
             if (a.inicio < b.inicio) return -1;
             if (a.inicio > b.inicio) return 1;
             return 0;
         });
 
-        // 4. PREENCHER A TABELA
         if (agendamentosFiltrados.length === 0) {
-             msgVazio.textContent = `Nenhum agendamento encontrado para ${formatarDataBr(dataFiltro)}.`;
+             msgVazio.textContent = `Nenhum agendamento encontrado para ${textoFeedback}.`;
              msgVazio.style.display = 'block';
              return;
         }
 
         agendamentosFiltrados.forEach(ag => {
             const linha = document.createElement('tr');
+            const nomeSala = ag.sala ? ag.sala.trim() : "S/N";
+
             linha.innerHTML = `
                 <td>${formatarDataBr(ag.data)}</td>
-                <td><strong>${ag.sala}</strong></td>
+                <td><strong>${nomeSala}</strong></td>
                 <td>${ag.inicio}</td>
                 <td>${ag.fim}</td>
                 <td>${ag.responsavel}</td>
@@ -67,19 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- EVENT LISTENERS ---
-    
-    // 1. Evento de clique no botão Filtrar
     btnFiltrar.addEventListener('click', () => {
         const dataSelecionada = inputFiltro.value;
         if (dataSelecionada) {
             carregarAgendamentos(dataSelecionada);
         } else {
-             // Se o campo estiver vazio, recarrega a lista sem filtro
-             carregarAgendamentos(null);
+            alert("Por favor, selecione uma data no calendário.");
         }
     });
 
-    // 2. Carregar a lista automaticamente ao abrir a página (mostrando agendamentos de hoje)
-    carregarAgendamentos(); 
+    // Ver Todos
+    if (btnVerTodos) {
+        btnVerTodos.addEventListener('click', () => {
+            carregarAgendamentos('todos');
+        });
+    }
+
+    carregarAgendamentos('todos'); 
 });
