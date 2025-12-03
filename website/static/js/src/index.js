@@ -8,9 +8,7 @@
   const msgBox      = document.getElementById('mensagem');
   const listaWrap   = document.getElementById('lista-cadastros');
 
-
   const cadastros = [];
-
 
   function showMsg(texto, ok = true) {
     msgBox.classList.remove('d-none', 'alert-danger', 'alert-success');
@@ -20,11 +18,9 @@
     showMsg._t = setTimeout(() => msgBox.classList.add('d-none'), 3000);
   }
 
-
   function resetErrors() {
     [sala, bloco, tipo, capacidade].forEach(el => el.classList.remove('is-invalid'));
   }
-
 
   function renderTabela() {
     if (!cadastros.length) { listaWrap.innerHTML = ''; return; }
@@ -58,17 +54,14 @@
       </div>`;
   }
 
-
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     resetErrors();
-
 
     const vSala = (sala.value || '').trim();
     const vBloco = (bloco.value || '').trim();
     const vTipo = (tipo.value || '').trim();
     const vCap = (capacidade.value || '').trim();
-
 
     let ok = true;
     if (!vSala) { sala.classList.add('is-invalid'); ok = false; }
@@ -76,9 +69,7 @@
     if (!vTipo  || vTipo.toLowerCase() === 'selecione')  { tipo.classList.add('is-invalid'); ok = false; }
     if (!vCap   || vCap.toLowerCase() === 'selecione')   { capacidade.classList.add('is-invalid'); ok = false; }
 
-
     if (!ok) { showMsg('Preencha todos os campos obrigatórios.', false); return; }
-
 
     cadastros.push({
       sala: vSala,
@@ -87,12 +78,10 @@
       capacidade: vCap
     });
 
-
     renderTabela();
     form.reset();
     sala.focus();
   });
-
 
   btnCancelar.addEventListener('click', () => {
     form.reset();
@@ -100,3 +89,7 @@
     showMsg('Formulário limpo.', true);
   });
 })();
+
+document.getElementById('sala').addEventListener('input', function(e) {
+    this.value = this.value.replace(/\D/g, '');
+});
