@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="index.css" />
 </head>
 
-
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container">
@@ -28,7 +27,6 @@
     </div>
   </nav>
 
-
   <div class="form-container">
     <div class="form-title">Agendar Sala</div>
     <form id="agendarForm">
@@ -44,7 +42,6 @@
         </div>
       </div>
 
-
       <div class="row g-3 mt-1">
         <div class="col-md-4">
           <label for="periodo" class="form-label">Período:</label>
@@ -59,14 +56,42 @@
           <input type="time" class="form-control" id="horaFim" required />
         </div>
       </div>
+      
+      <div class="mb-3">
+    <label class="form-label d-block">Repetir nos dias:</label>
 
+    <div class="btn-group" role="group" aria-label="Dias da semana">
+        
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnSeg" value="1" >
+        <label class="btn btn-outline-primary" for="btnSeg">Seg</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnTer" value="2">
+        <label class="btn btn-outline-primary" for="btnTer">Ter</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnQua" value="3">
+        <label class="btn btn-outline-primary" for="btnQua">Qua</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnQui" value="4">
+        <label class="btn btn-outline-primary" for="btnQui">Qui</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnSex" value="5">
+        <label class="btn btn-outline-primary" for="btnSex">Sex</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnSab" value="6">
+        <label class="btn btn-outline-primary" for="btnSab">Sáb</label>
+
+        <input type="checkbox" class="btn-check" name="diaSemana" id="btnDom" value="0">
+        <label class="btn btn-outline-primary" for="btnDom">Dom</label>
+    </div>
+    
+    <div class="form-text">(Os dias marcados ficarão azuis).</div>
 
       <div class="mt-3">
         <label for="descricao" class="form-label">Descrição:</label>
         <textarea id="descricao" class="form-control" rows="3" placeholder="Descreva aqui..."></textarea>
       </div>
 
-
+</div>
       <div class="d-flex justify-content-between mt-4">
         <button type="reset" class="btn btn-cancelar px-4">Cancelar</button>
         <button type="submit" class="btn btn-cadastrar px-4">Agendar</button>
